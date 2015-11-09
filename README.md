@@ -1,4 +1,4 @@
-## Funder
+### Funder
 
 Funder is an experimental program to accomplish two goals:
 
