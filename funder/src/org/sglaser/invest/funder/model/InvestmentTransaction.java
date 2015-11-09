@@ -1,4 +1,4 @@
-package org.sglaser.invest.model;
+package org.sglaser.invest.funder.model;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,5 +1,7 @@
-package org.sglaser.invest.funder;
+package org.sglaser.invest.funder.ui;
 
+import com.vaadin.external.org.slf4j.Logger;
+import com.vaadin.external.org.slf4j.LoggerFactory;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
@@ -12,15 +14,15 @@ import com.vaadin.ui.Button.ClickEvent;
 
 public class SellView extends Panel implements View {
 
+	private static final Logger LOG = LoggerFactory.getLogger(SellView.class);
 	private static final long serialVersionUID = -5733380033044575784L;
 	protected static final String NAME = "sellview";
 
+	@SuppressWarnings("serial")
 	public SellView() {
-		
-		setSizeFull();  // to ensure the panel takes the available space	
-        
+        		
+		LOG.info("Build the sell view form");
 		FormLayout layout = new FormLayout();
-		layout.setSizeUndefined(); // Shrink to fit
 		layout.setMargin(true);	
 		layout.addComponent(new Label("Sell Investments"));
 		layout.addComponent(new TextField("Symbol"));
