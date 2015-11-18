@@ -38,6 +38,7 @@ public class SellView extends Panel implements View {
 			}
 		});
 		layout.addComponent(button);
+//		layout.setData(data);
 		setContent(layout);
     }
 	

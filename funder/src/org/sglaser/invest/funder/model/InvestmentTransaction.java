@@ -1,69 +1,37 @@
 package org.sglaser.invest.funder.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * Simple entity bean that contains the data for an investment.
  */
-public class InvestmentTransaction implements Serializable {
+public class InvestmentTransaction extends Investment {
 
-	private static final long serialVersionUID = -6990593733218115847L;
-	private String symbol;
-	private int numberOfShares;
-	private int price;
-	private Date date;
-	private int commission;
+	private static final long serialVersionUID = -1530033535975616381L;
+	private InvestmentDetail buyInvestment;
+	private InvestmentDetail sellInvestment;
 
 	public InvestmentTransaction() {
 	}
 
-	public InvestmentTransaction(String symbol, int numberOfShares, int price, Date date, int commission) {
+	public InvestmentTransaction(String symbol, InvestmentDetail buyInvestment, InvestmentDetail sellInvestment) {
 		super();
 		this.setSymbol(symbol);
-		this.setNumberOfShares(numberOfShares);
-		this.setPrice(price);
-		this.setDate(date);
-		this.setCommission(commission);
+		this.setBuyInvestment(buyInvestment);
+		this.setSellInvestment(sellInvestment);
 	}
 
-	public String getSymbol() {
-		return symbol;
-	}
-	
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-	
-	public int getNumberOfShares() {
-		return numberOfShares;
+	public InvestmentDetail getBuyInvestment() {
+		return buyInvestment;
 	}
 
-	public void setNumberOfShares(int numberOfShares) {
-		this.numberOfShares = numberOfShares;
+	public void setBuyInvestment(InvestmentDetail buyInvestment) {
+		this.buyInvestment = buyInvestment;
 	}
 
-	public int getPrice() {
-		return price;
+	public InvestmentDetail getSellInvestment() {
+		return sellInvestment;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public int getCommission() {
-		return commission;
-	}
-
-	public void setCommission(int commission) {
-		this.commission = commission;
+	public void setSellInvestment(InvestmentDetail sellInvestment) {
+		this.sellInvestment = sellInvestment;
 	}
 }
