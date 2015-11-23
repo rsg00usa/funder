@@ -2,25 +2,29 @@ package org.sglaser.invest.funder.model;
 
 import java.util.Date;
 
+import org.sglaser.invest.funder.data.TransactionType;
+
 /**
  * Simple entity bean that contains the data for an investment.
  */
-public class InvestmentDetail extends Investment {
+public class Transaction extends Trade {
 
 	private static final long serialVersionUID = -6990593733218115847L;
 	private int numberOfShares;
 	private int price;
 	private Date date;
 	private int commission;
+	private TransactionType type;
 
-	public InvestmentDetail() {
+	public Transaction() {
 	}
 
-	public InvestmentDetail(String symbol, int numberOfShares, int price, Date date, int commission) {
+	public Transaction(String symbol, int numberOfShares, int price, TransactionType type, Date date, int commission) {
 		super();
 		this.setSymbol(symbol);
 		this.setNumberOfShares(numberOfShares);
 		this.setPrice(price);
+		this.setType(type);
 		this.setDate(date);
 		this.setCommission(commission);
 	}
@@ -41,6 +45,15 @@ public class InvestmentDetail extends Investment {
 		this.price = price;
 	}
 
+	public TransactionType getType() {
+		return type;
+	}
+
+	public void setType(TransactionType type) {
+		this.type = type;
+	}
+
+	
 	public Date getDate() {
 		return date;
 	}

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Simple entity bean that contains the data for an investment.
  */
-public abstract class Investment implements Serializable {
+public abstract class Trade implements Serializable {
 
 	private static final long serialVersionUID = 4410529370740890035L;
 	private String symbol;

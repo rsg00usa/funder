@@ -3,14 +3,10 @@ package org.sglaser.invest.funder.data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Properties;
 
-import org.sglaser.invest.funder.ui.BuyView;
+import org.sglaser.invest.funder.ui.TradeView;
 
-import com.vaadin.data.Item;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
 import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
 import com.vaadin.data.util.sqlcontainer.connection.SimpleJDBCConnectionPool;
@@ -20,48 +16,39 @@ import com.vaadin.external.org.slf4j.LoggerFactory;
 
 public class DBConnector {
 
-	private static final Logger LOG = LoggerFactory.getLogger(BuyView.class);
+	private static final Logger LOG = LoggerFactory.getLogger(TradeView.class);
 	private final String dbConfigFile = "dbconfig.properties";
+	private final Properties dbprop = new Properties();
     
-	private Properties getDbProperties() {
-	   
-	  final Properties configProp = new Properties();
+	public DBConnector() {
    
-	  LOG.info("Read configuraiton information form dbConfigFile");
+	  LOG.info("Read configuration information form dbConfigFile");
       InputStream in = getClass().getClassLoader().getResourceAsStream(dbConfigFile);
       try {
-          configProp.load(in);
+          dbprop.load(in);
       } catch (IOException e) {
-          e.printStackTrace();
+          throw new RuntimeException(e);
       }
-      return configProp;
-   }
+	}
 		
-	public SQLContainer getSQLContainer(String tablename) throws SQLException {
+	public SQLContainer getSQLContainer(String tablename) {
 		
-		Properties dbprop = getDbProperties();
-		JDBCConnectionPool pool = null;
+		SQLContainer sqlCon = null;
 		
 		LOG.info("Create JDBC connecton");
 		try {
-			pool = new SimpleJDBCConnectionPool(
+			JDBCConnectionPool pool = new SimpleJDBCConnectionPool(
 					dbprop.getProperty("drivername"),
 					dbprop.getProperty("connectionuri"),
 					dbprop.getProperty("dbuser"),
 					dbprop.getProperty("dbpasswd"));
+			
+			TableQuery tq = new TableQuery(tablename, pool);
+			tq.setVersionColumn("OPTLOCK");
+			sqlCon = new SQLContainer(tq);
 		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		TableQuery tq = new TableQuery(tablename, pool);
-		tq.setVersionColumn("OPTLOCK");
-		SQLContainer con = new SQLContainer(tq);
-		return con;
+			throw new RuntimeException(e);
+		}	
+		return sqlCon;
 	}
-	
-//	Object id = personContainer.addItem();
-//	personContainer.getContainerProperty(id, "FIRSTNAME")
-//	.setValue(firstName);
-//	personContainer.getContainerProperty(id, "LASTNAME")
-//	.setValue(lastName);
 }

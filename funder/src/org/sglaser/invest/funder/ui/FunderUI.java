@@ -40,9 +40,9 @@ public class FunderUI extends UI {
 		LOG.info("Build the header container which will be added to the root container");
 		HorizontalLayout header = new HorizontalLayout();
 		header.setSpacing(true);
-		header.addComponent(new Link("Investments", new ExternalResource("#!" + "")));
-		header.addComponent(new Link("Buy Investment", new ExternalResource("#!" + "buyview")));
-		header.addComponent(new Link("Sell Investment", new ExternalResource("#!" + "sellview")));
+		header.addComponent(new Link("Portfolio", new ExternalResource("#!" + "")));
+		header.addComponent(new Link("Trade", new ExternalResource("#!" + TradeView.NAME)));
+		header.addComponent(new Link("History", new ExternalResource("#!" + HistoryView.NAME)));
 		mainLayout.addComponent(header);
 
 		LOG.info("Build the content as a panel component which will be added to the root container where all navigation happens");
@@ -52,8 +52,8 @@ public class FunderUI extends UI {
 		
 		LOG.info("Configure navigation");
 		Navigator navigator = new Navigator(this, content);
-        navigator.addView(InvestmentView.NAME, new InvestmentView());
-        navigator.addView(BuyView.NAME, new BuyView());
-        navigator.addView(SellView.NAME, new SellView());
+        navigator.addView(PortfolioView.NAME, new PortfolioView());
+        navigator.addView(TradeView.NAME, new TradeView());
+        navigator.addView(HistoryView.NAME, new HistoryView());
 	}
 }

@@ -1,7 +1,5 @@
 package org.sglaser.invest.funder.ui;
 
-import java.sql.SQLException;
-
 import org.sglaser.invest.funder.data.DBConnector;
 
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
@@ -14,46 +12,33 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.VerticalLayout;
 
-public class InvestmentView extends VerticalLayout implements View {
+public class PortfolioView extends VerticalLayout implements View {
 
-	private static final Logger LOG = LoggerFactory.getLogger(InvestmentView.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PortfolioView.class);
 	private static final long serialVersionUID = -8245699813132323553L;
 	protected static final String NAME = "";  // Default name is "" for navigation
 	
-	public InvestmentView() {
+	public PortfolioView() {
 
 		setMargin(true);
 		setSpacing(true);
 		
-		addComponent(new Label("Investments"));
+		addComponent(new Label("Portfolio"));
 		
-		LOG.info("Load data into grid");
+		LOG.info("Load data from investment table into grid");
 		DBConnector conn = new DBConnector();
-		SQLContainer sqlcon = null;
-		try {
-			sqlcon = conn.getSQLContainer("investment");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("SQLContainer Error");
-		}
+		SQLContainer sqlcon = conn.getSQLContainer("portfolio");
+		
 		LOG.info("Filter out unwanted data such as PKey");
-//		sqlcon.addContainerFilter(propertyId, filterString, ignoreCase, onlyMatchPrefix);
 		Grid grid = new Grid();
+		grid.setSizeFull();
 		grid.setContainerDataSource(sqlcon);
-
-//		grid.addColumn("name", String.class);
-//		grid.addColumn("born", Integer.class);
-//
-//		LOG.info("Add some data rows");
-//		grid.addRow("Nicolaus Copernicus", 1543);
-//		grid.addRow("Galileo Galilei", 1564);
-//		grid.addRow("Johannes Kepler", 1571);
-
+		grid.removeColumn("pkey");
 		addComponent(grid);
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		Notification.show("In InvestmentView");
+		Notification.show("In Portfolio View");
 	}
 }

@@ -1,28 +1,27 @@
 package org.sglaser.invest.funder.data;
 
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.util.sqlcontainer.SQLContainer;
+import com.vaadin.external.org.slf4j.Logger;
+import com.vaadin.external.org.slf4j.LoggerFactory;
 
 public class DataTest {
 
+	private static final Logger LOG = LoggerFactory.getLogger(DataTest.class);
+	
 	public static void main(String[] args) {
 
-		// Create simple test to verify it works
-		DBConnector conn = new DBConnector();
-		SQLContainer con = null;
-		try {
-			con = conn.getSQLContainer("investment");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		LOG.info("Create simple test to verify it works");
+		DBConnector dbcon = new DBConnector();
+		SQLContainer sqlcon = dbcon.getSQLContainer("transaction");
+
 		
-		System.out.println("Number of rows/items: " + con.size());
-		System.out.println("Item: " + con.getItem(con.lastItemId()));
-		Item item = con.getItem(con.lastItemId());
+		System.out.println("Number of items(rows): " + sqlcon.size());
+		System.out.println("Last item: " + sqlcon.getItem(sqlcon.lastItemId()));
+		Item item = sqlcon.getItem(sqlcon.lastItemId());
 		Collection<?> list = item.getItemPropertyIds();
 		for (Iterator<?> it = list.iterator(); it.hasNext();) {
 			String s = (String) it.next();
@@ -30,6 +29,8 @@ public class DataTest {
 		}
 		System.out.println("Number of properties per item: " + list.size());
 
+//		Object id = sqlcon.addItem();
+//		sqlcon.getContainerProperty(id, "symbol").setValue("YHOO");		
 //		System.out.println("Item: " + con.firstItemId());
 //		for (HashMap<String,String> map : list) {
 //			System.out.println("Map: " + map);
