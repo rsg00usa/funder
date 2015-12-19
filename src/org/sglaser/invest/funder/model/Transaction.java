@@ -1,5 +1,6 @@
 package org.sglaser.invest.funder.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.sglaser.invest.funder.data.TransactionType;
@@ -7,9 +8,10 @@ import org.sglaser.invest.funder.data.TransactionType;
 /**
  * Simple entity bean that contains the data for an investment.
  */
-public class Transaction extends Trade {
+public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = -6990593733218115847L;
+	private String symbol;
 	private int numberOfShares;
 	private int price;
 	private Date date;
@@ -27,6 +29,14 @@ public class Transaction extends Trade {
 		this.setType(type);
 		this.setDate(date);
 		this.setCommission(commission);
+	}
+	
+	public String getSymbol() {
+		return symbol;
+	}
+	
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 	
 	public int getNumberOfShares() {

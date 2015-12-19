@@ -22,6 +22,7 @@ public class DBConnector {
     
 	public DBConnector() {
    
+		// Should only do this once
 	  LOG.info("Read configuration information form dbConfigFile");
       InputStream in = getClass().getClassLoader().getResourceAsStream(dbConfigFile);
       try {
